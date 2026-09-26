@@ -31,6 +31,13 @@ bash /opt/nodera/deploy.sh   # git pull -> pnpm build -> rsync dist/ to the web 
 - `.figma/make/site.json` drives the page title, description and `robots.txt`, and `vite.config.ts`
   imports it at build time — do not delete the `.figma/` directory
 
+## Browser checks
+
+Headless Chromium is installed and wired up through the `playwright` MCP server, so UI work
+can be verified here instead of being handed back to the user. Open <http://localhost:8443/>,
+take a screenshot, click through the flow and read the console. Do that before reporting a
+visual change as done.
+
 ## Project Structure
 
 This is the canonical project structure. Start with task-relevant files below. Only follow imports or inspect other files when required, when a documented path is missing, or when the repository contradicts this guide.
