@@ -1,4 +1,5 @@
 {
+  "title": "Nodera",
   "description": "This web application offers a task completion system where users earn points by completing assigned tasks, with a secure activation code linked to their device.",
   "robots": {
     "index": false

@@ -1,13 +1,35 @@
-# figma-make-app
+# Nodera
 
-React + Vite + Tailwind CSS project running inside Figma Make.
+React + Vite + Tailwind CSS single-page app, originally exported from Figma Make,
+now developed and deployed on a self-hosted server (`35.246.59.75`).
 
 ## Development Server
 
-A Vite development server is **already running** on `$PORT` (default 8443). You don't need to start it manually.
+The Vite dev server is **not** started automatically here — start it yourself:
 
-- Preview URL: The user can access the running app through the preview panel
-- Hot reload: Changes to source files are reflected immediately
+```bash
+pnpm dev   # binds 0.0.0.0:$PORT (default 8443), strictPort
+```
+
+- On the server it runs in the `nodera` tmux session from the `/opt/nodera-dev` working copy
+- Preview URL: <http://35.246.59.75:8443>
+- Hot reload: changes to source files are reflected immediately
+- If the port is taken, a dev server is probably already up — run `tmux attach -t nodera` and check before starting another
+
+## Deployment
+
+Production is a plain static build served by nginx. There is no backend process, so
+nothing needs pm2 or systemd.
+
+```bash
+bash /opt/nodera/deploy.sh   # git pull -> pnpm build -> rsync dist/ to the web root
+```
+
+- Build output: `dist/` (`pnpm build`)
+- Web root: `/var/www/nodera`, served by nginx on port 80 (see `deploy/nginx.conf`)
+- The deploy working copy is `/opt/nodera`, separate from the `/opt/nodera-dev` one used for editing
+- `.figma/make/site.json` drives the page title, description and `robots.txt`, and `vite.config.ts`
+  imports it at build time — do not delete the `.figma/` directory
 
 ## Project Structure
 
